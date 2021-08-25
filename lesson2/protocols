@@ -1,0 +1,134 @@
+OSI = Open Systems Interconnection
+TCP/IP = Simplier than OSI modules
+
+TCP/IP
+- data file is divided into payload segments based on the maximum transfer unit (MTU)
+- TCP (Transmission Control Protocol) header is added to the data segment
+- 2 Computer open a TCP Session by the following:
+    - H1 sends to H5 a SYN message
+    - H5 sends to H1 a SYN,ACK message
+    - H1 sends to H5 a ACK message
+- IP Header is added to IP Packet
+- Ethernet Header added to IP Packet
+- Routers use the IP addresses in Header and Route table to route IP packets.
+- Ethernet frame is received at H5 NIC (Network Interface Card)
+    - if error is detected => frame is discarded & retransmission requested
+- ETH Header removed
+- IP Header removed
+- TCP Header removed
+- Payload segments are combined => datafile
+
+Layer 5: Application layer
+I want to send datafiles.
+* Communication of app/services between separates computers/hosts
+
+Layer 4: Transport Layer
+Divide data into different in TCP Payload Sgements and number those (TCP Sequence Number)
+numbers are used to find missing segments & reorder data
+* Provide ports to app at the destination computer 
+* Protocols: UTP, TCP
+
+Layer 3: Internet Protocol Layer
+Add source and destination IP address
+* let a packet go throught multiple different interconnected networks
+* addressing and routing function
+
+Layer 2: Network Acces Layer
+Choose between:
+- Satelite Communications
+- Mobile Communications: 3g, 4g, 5g
+- Optical Fiber Network Communications
+- Ethernet, Wifi, Bluetooth
+
+* Addressing, Priority Control, Error Control, Flow Control
+* In LAN, NAL address is called MAC (Medium Acces Control address)
+
+Layer 1: Physical Layer
+Choose between:
+- Wired Electrical signal/cable
+- Wireless
+- Optical laser signal
+* Physical interface to receive and sending signal 
+* ex: Ethernet Cable
+
+IPv4 Packet
+- IP Packet is called a datagram
+- IPv4 Packet = TCP/UDP Header + Data (Payload segment)
+
+function:
+- Inter-Networking
+- Routing
+- Contains everything to deliver IPv4 packet to its destination
+
+1 word = 32bits
+
+Composition of an IPv4 Header:
+- Version field: 4 bits (for IPV4, version include value 4)
+- IHL (Internet Header Length): 4 bits (length of IPv4 Header in word) (min:5)
+- DS (Differentiated Services): first 6 bits
+- ECN (Explicit Congestion Notification): 2 bits (signaling congestion & slow down 
+speed of transmission)
+- Total length: 16 bits of the IP Packet (max: 65535)
+
+MTU (Maximum Transfer Unit) => Maximum Size of IP Packet transmitted without fragmentation
+
+- Identification: 16 bits = Sequence Number used to identify the IPv4 Packet
+- Flags (3 bits) =>
+    - bit 0: idk 
+    - bit 1: DF => if we can or not fragment 
+    - bit 2: MF => More/Last fragment
+- Fragment Offset (13 bits) => where in the original datagram the fragment is
+- Time To Live (8 bits) => if the TTL reach 0 before in the destination => packet is discarded
+- Protocol (8 bits) => type of the next header in the packet following this one
+- Header Checksum (16 bits) => Error Detection code to protect the packet
+- Source Address (32 bits)
+- destination Address (32 bits)
+- Option requested by host computer
+- Padding (fill the 32 bits used by option)
+
+CIDR (Classless Inter-Domain Routing) => used now because: 
+- Class A, B, C create too large subnets => atse IP Address
+- Internet more scalable
+
+* enables IPv4 & IPv6 address block allocation 
+* allocate IPv4 & IPv6 address spaces 
+* uses VLSM (Variable-Length Subnet Masking)
+
+IPv6
+- Version (6 bits)
+- DS (6 bits)
+- ECN (2 bits)
+- Flow Label (20 bits) => used to inform routers that routing path changes 
+should not be applied to these packets
+- Payload Length => size of payload in octets (max 2^16 bits)
+- Next Header (8 bits) => type of next header (extension or transportation)
+- Extension Header (each 8 bits but can be many) 
+- Hop Limit (8 bits) => decreased by one for each intermediate node the packet pass throught
+  (discarded when HL=0)
+- Source address (128 bits) ex: 2ac1:05b8:123e::3a0:c234
+- Destination address (128 bits)
+
+Unspecified address ::/128
+Default route ::/0
+
+User Datagram Protocol (UDP)
+- Connectionless: UDP does not check the received packets
+
+UDP Header:
+- Source Port
+- Destination Port
+- Length (of the entire UDP segment)
+- Checksum (to detect bit errors in UDP Header) => if error, segmment discard
+ (optional)
+
+TCP Header:
+min lenght = 20 octets
+- Checksum (16 bits) => Error detection code
+- Data offset (4 bits) => size of TCP header (in 32-bits word)
+- Reserved (4 bits) => reserved place
+- Source port (16 bits)
+- Destination port (16 bits)
+- PSH (1 bits) => give data to the app immediatly
+- URG (1 bit) => Urgent Pointer field is used
+- Urgent Pointer (16 bits) => let user know how much urgent data is comming
+

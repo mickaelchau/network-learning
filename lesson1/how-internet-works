@@ -1,0 +1,47 @@
+Network Protocols: Source https://www.coursera.org/learn/tcpip/lecture/vGioy/1-2-automatic-internet-setup-using-dhcp
+
+Each interface (protocols such as: Wifi, Bluetooh, 2g, 3g, 4g)needs an IP address
+subnet = division of Internet
+subnet mask = 
+ - formed by 32bits from MSB (Left) to LSB (right) (Least signficant bit)
+ - used to filter ip address to determine if the packet belongs to the subnet.
+example: 255.255.252.0 => 11111111.11111111.11111100.00000000 
+                       => 10 0 => 2^10 address are on the subnet.
+Default Gateway = Dedicated Internet Router that send and receive Internet IP packets for the pc
+ will send and receive packets from throught this gateway
+
+DHCP (Dynamic Host Configuration Protocol) enables a device to automaticlly 
+contact the local DHCP server and request for IP address & networking params
+to connect to Internet.
+usecase:
+- Only a device that needs Internet connection is assigned an IP address to use.
+- Wehn connection ends, IP address can be reused by another device.
+
+IPv4 = 32 bits = 4,3 billions IP address
+Too small => DHCP & IPv6 are needed
+
+Example:
+Room of 100 PCS
+- 100 ip address for pc
+- 1 ip address for network destination (IP of the subnet) => smaller ip address
+- 1 ip address for Broadcast IP (share info between pc) => highest
+- 1 ip address for Gateway Interface (IP of the gateway) => 2nd highest
+
+For a subnet, if we need 103 address => we will use 2^7 address=128 
+Subnet size = 2^7
+Subnet Mask: 255.255.255.128 (because 256 - 128)
+
+CIDR (Network destination & subnet mask same time)
+32 - power of subnet size = 32 -7 = 25
+165.132.9.0/25
+
+for room B, CIDR will be 165.132.9.128/27 => 128 is because room a have used
+the address before
+
+Route table:
+- When an IP Packet enters the Gateway/Router, the routing table is used to 
+determine where to send this packet out.
+- Route table is checked up to down 
+- If the ip address of the pakcet is in the subnet mask range => send to the 
+corresponding gateway
+- If not, check the next row of route table
